@@ -1,5 +1,8 @@
 import { Client, Partials } from 'discord.js'
+import { readdirSync } from 'fs'
+import path from 'path'
 import { logger } from '../utils/logger'
+import { removeFileExtension } from '../utils/misc'
 
 class Bot extends Client {
   constructor() {
@@ -15,6 +18,18 @@ class Bot extends Client {
         Partials.ThreadMember,
       ],
     })
+
+    this.events()
+  }
+
+  private async events() {
+    const eventsDir = readdirSync(path.resolve(__dirname, '../events'))
+
+    for (const file of eventsDir) {
+      const { default: execute } = await import(`../events/${file}`)
+      const eventName = removeFileExtension(file)
+      this.on(eventName, (...args) => execute({ ...args, client: this }))
+    }
   }
 
   public run() {
