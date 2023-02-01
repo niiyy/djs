@@ -2,7 +2,7 @@ import { Client, Partials } from 'discord.js'
 import { readdirSync } from 'fs'
 import path from 'path'
 import { logger } from '../utils/logger'
-import { removeFileExtension } from '../utils/misc'
+import { registerCommands } from './rest'
 
 class Bot extends Client {
   constructor() {
@@ -20,6 +20,7 @@ class Bot extends Client {
     })
 
     this.events()
+    this.commands()
   }
 
   private async events() {
@@ -27,9 +28,21 @@ class Bot extends Client {
 
     for (const file of eventsDir) {
       const { default: execute } = await import(`../events/${file}`)
-      const eventName = removeFileExtension(file)
+      const eventName = path.parse(file).name
       this.on(eventName, (...args) => execute({ ...args, client: this }))
     }
+  }
+
+  private async commands() {
+    const commandsDir = readdirSync(path.resolve(__dirname, '../commands'))
+    const commands = []
+
+    for (const file of commandsDir) {
+      const { default: command } = await import(`../commands/${file}`)
+      commands.push(command)
+    }
+
+    registerCommands(commands)
   }
 
   public run() {

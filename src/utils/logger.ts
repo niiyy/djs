@@ -1,4 +1,4 @@
-import { createLogger, transports, format } from 'winston'
+import { createLogger, format, transports } from 'winston'
 
 const logFormat = (log: any): string =>
   `${log.timestamp} [${log.level}]: ${log.message}`
