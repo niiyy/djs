@@ -1,6 +1,6 @@
 import { IEvent } from '../types/client'
 
-const handleReady = ({ client }: IEvent) => {
+const handleReady: IEvent<'ready'> = client => {
   console.log(`client ready ${client.user.tag}`)
 }
 

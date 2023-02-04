@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from 'discord.js'
 
 const pingCommand = new SlashCommandBuilder()
   .setName('ping')
-  .setDescription('Je suis le plus beau !')
+  .setDescription('Commande de ping !')
   .toJSON()
 
 export default pingCommand

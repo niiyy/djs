@@ -29,7 +29,8 @@ class Bot extends Client {
     for (const file of eventsDir) {
       const { default: execute } = await import(`../events/${file}`)
       const eventName = path.parse(file).name
-      this.on(eventName, (...args) => execute({ ...args, client: this }))
+
+      this.on(eventName, (...args) => execute(this, ...args))
     }
   }
 
