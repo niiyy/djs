@@ -51,8 +51,8 @@ class Bot extends Client {
       .then(() => {
         logger.info(`Started with succes !`)
       })
-      .catch(() => {
-        logger.error('error while trying to start the client')
+      .catch(error => {
+        logger.error(`error while trying to start the client ${error}`)
         process.exit(1)
       })
   }

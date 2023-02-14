@@ -1,8 +1,5 @@
 import { REST } from '@discordjs/rest'
-import {
-  RESTPostAPIApplicationCommandsJSONBody,
-  Routes,
-} from 'discord-api-types/v10'
+import { RESTPostAPIApplicationCommandsJSONBody, Routes } from 'discord.js'
 
 export const registerCommands = async (
   commands: RESTPostAPIApplicationCommandsJSONBody[]

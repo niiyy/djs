@@ -4,14 +4,14 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "directory": "https://github.com/niiyy/discordts-fivem.git"
+    "directory": "https://github.com/niiyy/djs"
   },
   "author": "niiyy",
   "license": "MIT",
   "scripts": {
     "format": "prettier --write .",
     "start": "node dist/index.js",
-    "dev": "nodemon",
+    "dev": "tsup src/index.ts --format cjs --watch --onSuccess \"node dist/index.js\"",
     "build": "tsc"
   },
   "devDependencies": {
@@ -19,9 +19,11 @@
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "ts-node": "^10.7.0",
+    "tsup": "^6.6.3",
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "@discordjs/rest": "^1.5.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "fs": "^0.0.1-security",
